@@ -26,9 +26,7 @@ const BookPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(data);
-    fetch("http://localhost:8080/customers/addcustomer", {
+    fetch("https://hotel-booking-backend-app.herokuapp.com/customers/addcustomer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

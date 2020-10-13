@@ -8,7 +8,7 @@ const HomePageCont = () => {
   useEffect(() => {
     try {
       (async () => {
-        const fetchrooms = await fetch("http://localhost:8080/rooms");
+        const fetchrooms = await fetch("https://hotel-booking-backend-app.herokuapp.com/rooms");
         const fetchroomsInJson = await fetchrooms.json();
         setRooms(fetchroomsInJson);
       })();
