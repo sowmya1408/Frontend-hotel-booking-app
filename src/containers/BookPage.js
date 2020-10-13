@@ -10,6 +10,8 @@ const BookPage = () => {
     bookeddate: "",
   });
   const [rooms, setRooms] = useState([]);
+  const [bookingStatus, setBookingStatus] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setCustomerSelect({
@@ -24,26 +26,31 @@ const BookPage = () => {
     customerselect,
     rooms,
   };
-  const handleSubmit = (e) => {
+  console.log(data);
+  const handleSubmit = (e) => {  
     e.preventDefault();
-    fetch("https://hotel-booking-backend-app.herokuapp.com/customers/addcustomer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  };
+    console.log(data);
+         fetch("https://hotel-booking-backend-app.herokuapp.com/customers/addcustomer", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+          setBookingStatus(true)
+    }
+   
+
 
   return (
-    <div>
-      <FormComponent
+    <div>{bookingStatus ? <h1>Thankyou Choosing our Hotel, your booking is successful!!</h1> : <FormComponent
         handleChange={handleChange}
         customerselect={customerselect}
         handleSelect={handleSelect}
         rooms={rooms}
         handleSubmit={handleSubmit}
-      />
+      /> }
+      
     </div>
   );
 };

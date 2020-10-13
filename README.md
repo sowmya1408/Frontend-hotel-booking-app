@@ -2,6 +2,11 @@ Hotel Booking App
 
 This is the Front-end Repository:
 
+### How to use:
+
+1. Home-page : Gives overview of the hotel and rooms available
+2. Book now: The navigation contains a book now button, when clicked you will find a form to fill details and also the rooms you wish to select.
+
 ### Technologies 
 
 `React` for functional components/React hooks.
