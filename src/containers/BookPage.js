@@ -11,7 +11,7 @@ const BookPage = () => {
   });
   const [rooms, setRooms] = useState([]);
   const [bookingStatus, setBookingStatus] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setCustomerSelect({
@@ -27,30 +27,46 @@ const BookPage = () => {
     rooms,
   };
   console.log(data);
-  const handleSubmit = (e) => {  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
-         fetch("https://hotel-booking-backend-app.herokuapp.com/customers/addcustomer", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-          setBookingStatus(true)
+    try {
+      const postBookingInfo = await fetch(
+        "https://hotel-booking-backend-app.herokuapp.com/customers/addcustomer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseBookingInfo = await postBookingInfo.status;
+      setBookingStatus(true);
+      return responseBookingInfo === 400
+        ? setError("Please check if you have added all inputs correctly")
+        : null;
+    } catch (err) {
+      return err;
     }
-   
-
+  };
 
   return (
-    <div>{bookingStatus ? <h1>Thankyou Choosing our Hotel, your booking is successful!!</h1> : <FormComponent
-        handleChange={handleChange}
-        customerselect={customerselect}
-        handleSelect={handleSelect}
-        rooms={rooms}
-        handleSubmit={handleSubmit}
-      /> }
-      
+    <div>
+      {bookingStatus ? (
+        <h1>
+          {error
+            ? error
+            : "Thankyou Choosing our Hotel, your booking is successful!!"}
+        </h1>
+      ) : (
+        <FormComponent
+          handleChange={handleChange}
+          customerselect={customerselect}
+          handleSelect={handleSelect}
+          rooms={rooms}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 };
